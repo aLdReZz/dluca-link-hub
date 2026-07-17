@@ -396,6 +396,7 @@ const description = site.tagline;
       populateMonths(currentYear);
       rsMonth.value = String(currentMonthNum + 1).padStart(2, "0");
       populateDays(String(currentMonthNum + 1).padStart(2, "0"), currentYear);
+      rsDay.value = String(currentDay).padStart(2, "0");
       // Set hidden date for today's pre-fill
       rsDate.value = `${rsYear.value}-${rsMonth.value}-${rsDay.value}`;
 
