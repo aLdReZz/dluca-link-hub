@@ -505,9 +505,13 @@ const description = site.tagline;
           if (notes) msg += `\nNotes: ${notes}`;
           closeModal(reserveModal);
           reserveForm.reset();
-          window.location.href = `https://www.facebook.com/messages/t/907371789137065?text=${encodeURIComponent(msg)}`;
-          closeModal(reserveModal);
-          reserveForm.reset();
+          navigator.clipboard.writeText(msg).catch(function(){});
+          var toast = document.createElement("div");
+          toast.textContent = "✓ Message copied! Opening Messenger...";
+          toast.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:10px;font-size:0.9rem;z-index:9999;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity 0.3s";
+          document.body.appendChild(toast);
+          setTimeout(function(){ toast.style.opacity = "0"; setTimeout(function(){ toast.remove(); }, 300); }, 2500);
+          setTimeout(function(){ window.location.href = "https://m.me/907371789137065"; }, 500);
         });
       }
 
