@@ -503,7 +503,7 @@ const description = site.tagline;
           }
           let msg = `Hi D'Luca!\nI'd like to reserve a table for ${guests}\nDate: ${formatDate(date)}\nTime: ${timeTo12hr(time)}\nName: ${name}\nContact: ${contact}`;
           if (notes) msg += `\nNotes: ${notes}`;
-          window.open(`https://m.me/907371789137065?text=${encodeURIComponent(msg)}`, "_blank");
+          window.open(`https://www.facebook.com/messages/t/907371789137065?text=${encodeURIComponent(msg)}`, "_blank");
           closeModal(reserveModal);
           reserveForm.reset();
         });
