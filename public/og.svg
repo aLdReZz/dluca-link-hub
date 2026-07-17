@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fafafa"/>
+  <text x="600" y="260" font-family="Georgia, serif" font-size="80" font-weight="bold" fill="#111111" text-anchor="middle">D'Luca</text>
+  <text x="600" y="340" font-family="system-ui, sans-serif" font-size="36" fill="#888888" text-anchor="middle">Brewed for sips, Built for moments</text>
+  <circle cx="600" cy="200" r="10" fill="#C4622D"/>
+</svg>
