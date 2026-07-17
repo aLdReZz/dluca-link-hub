@@ -506,13 +506,7 @@ const description = site.tagline;
           if (notes) msg += `\nNotes: ${notes}`;
           closeModal(reserveModal);
           reserveForm.reset();
-          try { navigator.clipboard.writeText(msg); } catch(e) {}
-          var t = document.createElement("div");
-          t.textContent = "✓ Copied! Opening Messenger...";
-          t.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:10px;font-size:0.9rem;z-index:9999;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.3)";
-          document.body.appendChild(t);
-          setTimeout(function(){ t.remove(); }, 2000);
-          setTimeout(function(){ window.location.href = "https://m.me/907371789137065"; }, 300);
+          window.location.href = `https://www.facebook.com/messages/t/907371789137065?text=${encodeURIComponent(msg)}`;
         });
       }
 
