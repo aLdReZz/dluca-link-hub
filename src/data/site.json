@@ -4,16 +4,58 @@
   "accent": "#C4622D",
   "domain": "dlucabistrocafe.com",
   "links": [
-    { "label": "View menu", "href": "/menu.pdf", "icon": "menu" },
-    { "label": "Order online", "href": "#", "icon": "bag", "placeholder": true },
-    { "label": "Reserve a table", "href": "https://m.me/907371789137065", "icon": "calendar" },
-    { "label": "Book an event", "href": "#", "icon": "star" },
-    { "label": "Directions", "href": "https://www.google.com/maps?daddr=2nd+Flr,+Soho+Building,+Governor%27s+Dr,+Brgy.+Cabuco,+Trece+Martires+City,+4109+Cavite", "icon": "pin" }
+    {
+      "label": "View menu",
+      "href": "/menu.pdf",
+      "icon": "menu"
+    },
+    {
+      "label": "Order online",
+      "href": "#",
+      "icon": "bag",
+      "placeholder": true
+    },
+    {
+      "label": "Reserve a table",
+      "href": "https://m.me/907371789137065",
+      "icon": "calendar"
+    },
+    {
+      "label": "Book an event",
+      "href": "#",
+      "icon": "star"
+    },
+    {
+      "label": "Directions",
+      "href": "https://www.google.com/maps?daddr=2nd+Flr,+Soho+Building,+Governor%27s+Dr,+Brgy.+Cabuco,+Trece+Martires+City,+4109+Cavite",
+      "icon": "pin"
+    },
+    {
+      "label": "Leave a review",
+      "href": "#",
+      "icon": "review"
+    }
   ],
   "socials": [
-    { "label": "Instagram", "href": "https://www.instagram.com/dlucabistrocafe/", "icon": "instagram" },
-    { "label": "Facebook", "href": "https://www.facebook.com/dlucabistrocafe", "icon": "facebook" },
-    { "label": "TikTok", "href": "https://www.tiktok.com/@dlucabistrocafe", "icon": "tiktok" },
-    { "label": "Google", "href": "https://www.google.com/search?q=D%27Luca+Bistro+x+Caf%C3%A9", "icon": "google" }
+    {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/dlucabistrocafe/",
+      "icon": "instagram"
+    },
+    {
+      "label": "Facebook",
+      "href": "https://www.facebook.com/dlucabistrocafe",
+      "icon": "facebook"
+    },
+    {
+      "label": "TikTok",
+      "href": "https://www.tiktok.com/@dlucabistrocafe",
+      "icon": "tiktok"
+    },
+    {
+      "label": "Google",
+      "href": "https://www.google.com/search?q=D%27Luca+Bistro+x+Caf%C3%A9",
+      "icon": "google"
+    }
   ]
 }
