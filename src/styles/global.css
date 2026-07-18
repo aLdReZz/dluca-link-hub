@@ -185,16 +185,18 @@ footer {
 
 /* Marquee */
 .marquee-wrap {
-  width: 100%;
+  width: 100vw;
+  max-width: 100%;
   overflow: hidden;
   padding: 16px 0;
+  margin-left: calc(-50vw + 50%);
 }
 
 .marquee-track {
   display: flex;
   gap: 0;
   width: fit-content;
-  animation: marqueeScroll 50s linear infinite;
+  animation: marqueeScroll 60s linear infinite;
 }
 
 .marquee-img {
