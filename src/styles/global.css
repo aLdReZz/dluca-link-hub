@@ -196,6 +196,31 @@ footer {
   padding: 16px 0;
   flex-shrink: 0;
   margin-left: calc(-50vw + 50%);
+  position: relative;
+}
+
+.marquee-wrap::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  background: linear-gradient(to right, #0a0a0a 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.marquee-wrap::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  background: linear-gradient(to left, #0a0a0a 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .marquee-track {
