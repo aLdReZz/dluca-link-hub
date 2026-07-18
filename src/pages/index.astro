@@ -57,12 +57,6 @@ const description = site.tagline;
                 <span class="btn-label">Book an event</span>
                 <span class="arrow">&rarr;</span>
               </a>
-            ) : link.icon === "calendar" ? (
-              <a href="#" class="link-btn" id="reserve-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span class="btn-label">Reserve a table</span>
-                <span class="arrow">&rarr;</span>
-              </a>
             ) : (
               <LinkButton
                 label={link.label}
@@ -207,51 +201,6 @@ const description = site.tagline;
       </div>
     </div>
 
-    <!-- Reservation Modal -->
-    <div id="reserve-modal" class="modal-overlay">
-      <div class="modal-backdrop" id="reserve-backdrop"></div>
-      <div class="modal-content modal-content--narrow">
-        <div class="modal-header">
-          <span class="modal-title">Reserve a table</span>
-          <button id="reserve-close" class="modal-close" aria-label="Close">&times;</button>
-        </div>
-        <form class="reserve-form" id="reserve-form">
-          <label class="reserve-field">
-            <span>Name <em>*</em></span>
-            <input type="text" name="name" placeholder="Your name" required />
-          </label>
-          <label class="reserve-field">
-            <span>Contact <em>*</em></span>
-            <input type="tel" name="contact" placeholder="09XX XXX XXXX" required />
-          </label>
-          <label class="reserve-field">
-            <span>Date <em>*</em></span>
-            <div class="custom-date-wrap">
-              <select name="month" class="custom-select" id="rs-month" required></select>
-              <select name="day" class="custom-select" id="rs-day" required></select>
-              <select name="year" class="custom-select" id="rs-year" required></select>
-              <input type="hidden" name="date" id="rs-date" />
-            </div>
-          </label>
-          <label class="reserve-field">
-            <span>Time <em>*</em></span>
-            <select name="time" class="custom-select" id="rs-time" required>
-              <option value="">Select time</option>
-            </select>
-          </label>
-          <label class="reserve-field">
-            <span>Guests <em>*</em></span>
-            <input type="number" name="guests" min="1" placeholder="2" required />
-          </label>
-          <label class="reserve-field">
-            <span>Notes</span>
-            <input type="text" name="notes" placeholder="Allergies, occasion..." />
-          </label>
-          <button type="submit" class="reserve-submit">Send reservation</button>
-        </form>
-      </div>
-    </div>
-
     <script>
       const menuBtn = document.getElementById("menu-btn");
       const modal = document.getElementById("menu-modal");
@@ -338,186 +287,12 @@ const description = site.tagline;
       setupModalClose("coffee-cart-modal", "coffee-close", "coffee-backdrop");
       setupModalClose("private-event-modal", "private-close", "private-backdrop");
 
-      /* Reserve */
-      const reserveBtn = document.getElementById("reserve-btn");
-      const reserveModal = document.getElementById("reserve-modal");
-      const reserveClose = document.getElementById("reserve-close");
-      const reserveBackdrop = document.getElementById("reserve-backdrop");
-      const reserveForm = document.getElementById("reserve-form");
-      const rsMonth = document.getElementById("rs-month");
-      const rsDay = document.getElementById("rs-day");
-      const rsYear = document.getElementById("rs-year");
-      const rsDate = document.getElementById("rs-date");
-      const rsTime = document.getElementById("rs-time");
-
-      // Populate day select
-      const today = new Date();
-      const currentYear = today.getFullYear();
-      const currentMonthNum = today.getMonth(); // 0-indexed
-      const currentDay = today.getDate();
-
-      const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-      function populateMonths(year) {
-        rsMonth.innerHTML = '';
-        const start = (year === currentYear) ? currentMonthNum : 0;
-        for (let m = start; m < 12; m++) {
-          const val = String(m + 1).padStart(2, "0");
-          const opt = document.createElement("option");
-          opt.value = val;
-          opt.textContent = monthNames[m];
-          rsMonth.appendChild(opt);
-        }
-      }
-
-      function populateDays(month, year) {
-        rsDay.innerHTML = '';
-        const daysInMonth = new Date(year, month, 0).getDate();
-        const isCurrentMonth = year === currentYear && month === String(currentMonthNum + 1).padStart(2, "0");
-        const startDay = isCurrentMonth ? currentDay : 1;
-        for (let d = startDay; d <= daysInMonth; d++) {
-          const opt = document.createElement("option");
-          opt.value = String(d).padStart(2, "0");
-          opt.textContent = d;
-          rsDay.appendChild(opt);
-        }
-      }
-
-      // Populate year select (current year only + next)
-      for (let i = currentYear; i <= currentYear + 1; i++) {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = i;
-        rsYear.appendChild(opt);
-      }
-
-      // Pre-fill today
-      rsYear.value = currentYear;
-      populateMonths(currentYear);
-      rsMonth.value = String(currentMonthNum + 1).padStart(2, "0");
-      populateDays(String(currentMonthNum + 1).padStart(2, "0"), currentYear);
-      rsDay.value = String(currentDay).padStart(2, "0");
-      // Set hidden date for today's pre-fill
-      rsDate.value = `${rsYear.value}-${rsMonth.value}-${rsDay.value}`;
-
-      // Populate time slots
-      function populateTime(startHour) {
-        rsTime.innerHTML = '<option value="">Select time</option>';
-        const now = new Date();
-        const currentHour = now.getHours();
-        const currentMin = now.getMinutes();
-        const isToday = rsYear.value == currentYear && rsMonth.value == String(currentMonthNum + 1).padStart(2, "0") && rsDay.value == String(currentDay).padStart(2, "0");
-        for (let h = startHour; h <= 22; h++) {
-          for (let m = 0; m < 60; m += 30) {
-            if (isToday && (h < currentHour || (h === currentHour && m <= currentMin))) continue;
-            const val = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
-            const label = h > 12 ? `${h - 12}:${String(m).padStart(2, "0")} PM` : h === 12 ? `12:${String(m).padStart(2, "0")} PM` : `${h}:${String(m).padStart(2, "0")} AM`;
-            const opt = document.createElement("option");
-            opt.value = val;
-            opt.textContent = label;
-            rsTime.appendChild(opt);
-          }
-        }
-      }
-      populateTime(11); // default
-      function updateDate() {
-        if (rsMonth.value && rsDay.value && rsYear.value) {
-          rsDate.value = `${rsYear.value}-${rsMonth.value}-${rsDay.value}`;
-          const d = new Date(parseInt(rsYear.value), parseInt(rsMonth.value) - 1, parseInt(rsDay.value));
-          const day = d.getDay(); // 0=Sun, 1=Mon ... 6=Sat
-          if (day >= 1 && day <= 4) { // Mon-Thu
-            populateTime(12);
-          } else { // Fri-Sun
-            populateTime(11);
-          }
-        }
-      }
-
-      function onYearChange() {
-        const prevMonth = rsMonth.value;
-        populateMonths(parseInt(rsYear.value));
-        // Re-select previous month if valid in new year
-        const monthOpts = Array.from(rsMonth.options).map(o => o.value);
-        if (monthOpts.includes(prevMonth)) {
-          rsMonth.value = prevMonth;
-        } else {
-          rsMonth.value = "";
-          rsDay.innerHTML = '';
-          rsDay.value = "";
-          rsDate.value = "";
-          return;
-        }
-        if (rsMonth.value) {
-          populateDays(rsMonth.value, parseInt(rsYear.value));
-        }
-        updateDate();
-      }
-
-      function onMonthChange() {
-        if (rsMonth.value && rsYear.value) {
-          populateDays(rsMonth.value, parseInt(rsYear.value));
-        }
-        updateDate();
-      }
-
-      rsMonth.addEventListener("change", onMonthChange);
-      rsDay.addEventListener("change", updateDate);
-      rsYear.addEventListener("change", onYearChange);
-
-      if (reserveBtn) {
-        reserveBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openModal(reserveModal);
-        });
-      }
-
-      if (reserveClose) {
-        reserveClose.addEventListener("click", () => closeModal(reserveModal));
-      }
-
-      if (reserveBackdrop) {
-        reserveBackdrop.addEventListener("click", () => closeModal(reserveModal));
-      }
-
-      if (reserveForm) {
-        function timeTo12hr(val) {
-          if (!val) return "";
-          const [h, m] = val.split(":").map(Number);
-          const ampm = h >= 12 ? "PM" : "AM";
-          const h12 = h % 12 || 12;
-          return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
-        }
-        reserveForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const data = new FormData(reserveForm);
-          const name = data.get("name");
-          const contact = data.get("contact");
-          const date = data.get("date");
-          const time = data.get("time");
-          const guests = data.get("guests");
-          const notes = data.get("notes");
-          function formatDate(ymd) {
-            if (!ymd) return "";
-            const [y, m, d] = ymd.split("-");
-            const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-            return `${months[parseInt(m)-1]} ${parseInt(d)}, ${y}`;
-          }
-          let msg = `Hi D'Luca!\nI'd like to reserve a table for ${guests}\nDate: ${formatDate(date)}\nTime: ${timeTo12hr(time)}\nName: ${name}\nContact: ${contact}`;
-          if (notes) msg += `\nNotes: ${notes}`;
-          reserveForm.reset();
-          navigator.clipboard.writeText(msg).catch(function(){});
-          closeModal(reserveModal);
-          window.location.href = "https://m.me/907371789137065";
-        });
-      }
-
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           closeModal(modal);
           closeModal(eventsModal);
           closeModal(coffeeModal);
           closeModal(privateModal);
-          closeModal(reserveModal);
         }
       });
 
@@ -527,7 +302,6 @@ const description = site.tagline;
       const auto = params.get("auto") || path.replace("/", "");
       if (auto === "menu") openModal(modal);
       else if (auto === "events") { setTimeout(() => openModal(eventsModal), 100); }
-      else if (auto === "reserve") openModal(reserveModal);
       else if (auto === "coffee") { setTimeout(() => { closeModal(eventsModal); openModal(coffeeModal); }, 150); }
       else if (auto === "private") { setTimeout(() => { closeModal(eventsModal); openModal(privateModal); }, 150); }
     </script>
@@ -574,9 +348,9 @@ const description = site.tagline;
     background: var(--bg, #ffffff);
     border-radius: 16px;
     overflow: hidden;
-    max-width: 440px;
+    max-width: 380px;
     width: 100%;
-    max-height: 85vh;
+    max-height: 75vh;
     transform: scale(0.85) translateY(20px);
     opacity: 0;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
@@ -781,53 +555,6 @@ const description = site.tagline;
     font-size: 1.1rem;
   }
 
-  /* Reservation form */
-  .reserve-form {
-    padding: 14px 14px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--bg);
-  }
-
-  .reserve-field {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .reserve-field span {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .reserve-field span em {
-    color: #e74c3c;
-    font-style: normal;
-  }
-
-  .reserve-field input {
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .reserve-field input::placeholder {
-    color: #bbb;
-    font-size: 0.8rem;
-  }
-
-  .reserve-field input:focus {
-    border-color: var(--accent);
-  }
-
   /* Custom selects for date/time */
   .custom-date-wrap {
     display: flex;
@@ -838,48 +565,4 @@ const description = site.tagline;
     flex: 1;
   }
 
-  .custom-select {
-    padding: 9px 10px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 10px 6px;
-    padding-right: 28px;
-    transition: border-color 0.2s;
-  }
-
-  .custom-select:focus {
-    border-color: var(--accent);
-  }
-
-  .reserve-submit {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: var(--radius);
-    background: var(--accent);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    margin-top: 2px;
-  }
-
-  .reserve-submit:hover {
-    opacity: 0.85;
-  }
 </style>
