@@ -8,10 +8,10 @@
 
 :root {
   --accent: #C4622D;
-  --bg: #181818;
-  --text: #e0ddd9;
-  --text-muted: #7a7672;
-  --border: #2a2826;
+  --bg: #0a0a0a;
+  --text: #e8e5e1;
+  --text-muted: #6a6662;
+  --border: #222222;
   --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   --radius: 14px;
 }
@@ -24,7 +24,7 @@ html {
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
-  background: linear-gradient(165deg, #181818 0%, #1f1b18 50%, #231e1a 100%);
+  background: #0a0a0a;
   color: var(--text);
   min-height: 100dvh;
   display: flex;
@@ -77,7 +77,7 @@ header .tagline {
   gap: 14px;
   width: 100%;
   padding: 15px 18px;
-  background: #1f1f1f;
+  background: #141414;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   text-decoration: none;
@@ -95,7 +95,7 @@ header .tagline {
   border-color: var(--accent);
   box-shadow: 0 4px 16px rgba(196, 98, 45, 0.15), 0 0 0 1px var(--accent);
   transform: translateY(-1px);
-  background: #1f1f1f;
+  background: #141414;
 }
 
 .link-btn:focus-visible {
@@ -130,7 +130,7 @@ header .tagline {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-muted);
-  background: #2a2826;
+  background: #1e1e1e;
   padding: 3px 9px;
   border-radius: 20px;
 }
@@ -166,7 +166,7 @@ header .tagline {
 
 .social-link:hover {
   color: var(--accent);
-  background: #2a2826;
+  background: #1e1e1e;
 }
 
 .social-link svg {
@@ -189,7 +189,10 @@ footer {
   overflow: hidden;
   padding: 16px 0;
   position: relative;
-  left: calc(-16px);
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .marquee-track {
