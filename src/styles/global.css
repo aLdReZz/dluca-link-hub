@@ -182,3 +182,33 @@ footer {
   padding: 8px 0 16px;
   letter-spacing: 0.02em;
 }
+
+/* Marquee */
+.marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  width: fit-content;
+  animation: marqueeScroll 20s linear infinite;
+}
+
+.marquee-img {
+  display: block;
+  height: 60px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
