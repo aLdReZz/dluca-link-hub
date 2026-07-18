@@ -232,7 +232,7 @@ footer {
 
 .marquee-img {
   display: block;
-  height: 100px;
+  height: 120px;
   width: auto;
   flex-shrink: 0;
 }
