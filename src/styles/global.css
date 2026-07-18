@@ -193,7 +193,7 @@ footer {
 .marquee-wrap {
   width: 100vw;
   overflow: hidden;
-  padding: 16px 0;
+  padding: 0;
   flex-shrink: 0;
   margin-left: calc(-50vw + 50%);
   position: relative;
