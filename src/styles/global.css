@@ -187,19 +187,41 @@ footer {
 .marquee-wrap {
   width: 100%;
   overflow: hidden;
-  padding: 4px 0;
+  padding: 16px 0;
+  position: relative;
+}
+
+.marquee-wrap::before,
+.marquee-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+}
+
+.marquee-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
 }
 
 .marquee-track {
   display: flex;
   gap: 0;
   width: fit-content;
-  animation: marqueeScroll 20s linear infinite;
+  animation: marqueeScroll 50s linear infinite;
 }
 
 .marquee-img {
   display: block;
-  height: 60px;
+  height: 80px;
   width: auto;
   flex-shrink: 0;
 }
