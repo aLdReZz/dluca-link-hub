@@ -621,6 +621,7 @@ const description = site.tagline;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+    overflow: overlay;
     -webkit-overflow-scrolling: touch;
     background: #f0ece6;
     scrollbar-width: thin;
@@ -629,6 +630,11 @@ const description = site.tagline;
 
   .modal-body::-webkit-scrollbar {
     width: 4px;
+    background: transparent;
+  }
+
+  .modal-body::-webkit-scrollbar-track {
+    background: transparent;
   }
 
   .modal-body::-webkit-scrollbar-thumb {
