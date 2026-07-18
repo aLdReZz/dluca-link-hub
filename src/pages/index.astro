@@ -506,7 +506,16 @@ const description = site.tagline;
           if (notes) msg += `\nNotes: ${notes}`;
           closeModal(reserveModal);
           reserveForm.reset();
-          window.location.href = `https://www.facebook.com/messages/t/907371789137065?text=${encodeURIComponent(msg)}`;
+          // Copy to clipboard, then open Messenger app
+          if (navigator.clipboard) { navigator.clipboard.writeText(msg).catch(function(){}); }
+          // Show a brief toast
+          var t = document.createElement("div");
+          t.textContent = "✓ Message copied!";
+          t.style.cssText = "position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:14px 24px;border-radius:12px;font-size:0.95rem;z-index:9999;font-family:sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.4)";
+          document.body.appendChild(t);
+          setTimeout(function(){ t.remove(); }, 2000);
+          // Wait a moment then redirect to m.me to open the app
+          setTimeout(function(){ window.location.href = "https://m.me/907371789137065"; }, 400);
         });
       }
 
