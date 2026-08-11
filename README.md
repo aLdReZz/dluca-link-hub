@@ -1,35 +1,45 @@
-# D'Luca — Link Hub
+# D'Luca Bistro & Cafe — Link Hub
 
-A fast, mobile-first QR link hub for [D'Luca Bistro Cafe](https://dlucabistrocafe.com).
+A fast, mobile-first QR link hub for **D'Luca Bistro & Cafe**. Customers scan the table/window QR
+code and land here — tap to view the menu, book an event, reserve a table, get directions, or
+leave a review.
 
-## How to edit
+- **Live:** https://dlucabistrocafe.com
+- **Repo:** https://github.com/aLdReZz/dluca-link-hub
+- **Hosting:** Cloudflare Pages (auto-deploys on every push to `main`)
 
-All content lives in [`src/data/site.json`](src/data/site.json) — edit that file to change the restaurant name, tagline, links, or socials. Nothing else needs changing.
+> **New here? Read [`HANDOFF.md`](HANDOFF.md) first** — it has the full setup, structure,
+> how to update content, and everything needed to continue on another computer.
 
-### Run locally
-
-```bash
-npm run dev
-```
-
-Open at a phone-sized viewport (~390px) to preview.
-
-### Build
+## Quick start
 
 ```bash
-npm run build
+npm install
+npm run dev      # http://localhost:4321
 ```
 
-Static output goes to `dist/`.
+Deploy: push to `main` — Cloudflare Pages builds and publishes automatically.
 
-### Deploy
+## Editing content
 
-The site is hosted on **Cloudflare Pages** (free). Every push to the main branch automatically deploys.
+All content (name, tagline, links, socials) lives in **`src/data/site.json`** — edit that file,
+push, done. No code changes needed for normal updates.
 
-1. Push to GitHub
-2. Connect the repo to Cloudflare Pages (framework: Astro, build: `npm run build`, output: `dist/`)
-3. Add custom domain `link.dlucabistrocafe.com`
+## Project structure
 
-## QR code
+```
+public/            ← menu PDF + rendered pages, logo, marquee, favicon, _redirects
+src/
+  data/site.json   ← all content
+  pages/index.astro ← the hub page + all modals + JS
+  styles/global.css ← theme & layout
+  components/      ← LinkButton
+HANDOFF.md         ← the handoff / getting-started guide
+docs/              ← original planning docs
+```
 
-Point a QR generator at `https://link.dlucabistrocafe.com`. Since the hub is data-driven, the QR never needs reprinting — just update `site.json`.
+## Shareable links
+
+`dlucabistrocafe.com/menu` · `/events` · `/coffee` · `/private` · `/review` · `/reserve`
+
+See `HANDOFF.md` for the full table.
